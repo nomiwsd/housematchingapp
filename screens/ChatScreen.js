@@ -8,28 +8,31 @@ const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-      {
-        _id: 2,
-        text: 'Hello world',
-        createdAt: new Date(),
-        user: {
+    const timeout = setTimeout(() => {
+      setMessages([
+        {
           _id: 1,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+          text: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
         },
-      },
-    ]);
+        {
+          _id: 2,
+          text: 'Hello world',
+          createdAt: new Date(),
+          user: {
+            _id: 1,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ]);
+    }, 1000)
+   
   }, []);
 
   const onSend = useCallback((messages = []) => {

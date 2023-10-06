@@ -53,6 +53,7 @@ const Messages = [
 
 const MessageScreen = ({ navigation }) => {
   return (
+    
     <ScrollView>
       <View
         style={{
@@ -76,8 +77,8 @@ const MessageScreen = ({ navigation }) => {
             >
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
                 <View style={{ paddingTop: "15px", paddingBottom: "15px" }}>
@@ -85,7 +86,7 @@ const MessageScreen = ({ navigation }) => {
                     style={{
                       width: "50px",
                       height: "50px",
-                      borderRadius: "25px",
+                      borderRadius: '25px',
                     }}
                     source={item.userImg}
                   />

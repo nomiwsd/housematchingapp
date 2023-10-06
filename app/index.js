@@ -10,23 +10,33 @@ import MessageScreen from '../screens/MessageScreen';
 import ChatScreen from '../screens/ChatScreen';
 import AddPostScreen from '../screens/AddPostScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
+import MatchingScreen from '../screens/MatchingScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
+const COLORS={
+  Bgcolor:'#fff000',
+}
 const FeedStack = ({navigation}) => (
 
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{
+      headerStyle:{backgroundColor:COLORS.Bgcolor},
+  }}>
     <Stack.Screen
-      name="Social"
+      name="RN Social"
       component={HomeScreen}
       options={{
+        headerStyle:{backgroundColor:COLORS.Bgcolor},
         headerRight: () => (
-          <View style={{marginRight: 10}}>
+          <View style={{marginRight: 10, display:'flex',justifyContent:'center'}}>
             <FontAwesome5.Button
               name="plus"
               size={22}
               backgroundColor="#fff"
               color="#2e64e5"
+              style={{
+                marginLeft:13,
+              }}
               onPress={() => navigation.navigate('AddPost')}
             />
           </View>
@@ -54,16 +64,10 @@ const FeedStack = ({navigation}) => (
     />
     <Stack.Screen
       name="HomeProfile"
-      component={ProfileScreen}
+      component={HomeScreen}
       options={{
+        headerStyle:{backgroundColor:COLORS.Bgcolor},
         title: '',
-        headerTitleAlign: 'center',
-        headerStyle: {
-          backgroundColor: '#fff',
-          shadowColor: '#fff',
-          elevation: 0,
-        },
-        headerBackTitleVisible: false,
         headerBackImage: () => (
           <View style={{marginLeft: 15}}>
             <Ionicons name="arrow-back" size={25} color="#2e64e5" />
@@ -76,7 +80,7 @@ const FeedStack = ({navigation}) => (
 
 const MessageStack = ({navigation}) => (
   <Stack.Navigator>
-    <Stack.Screen name="Messages" component={MessageScreen} />
+    <Stack.Screen name="Messages" component={MessageScreen} options={{headerTitle:'Chats'}}/>
     <Stack.Screen
       name="Chat"
       component={ChatScreen}
@@ -88,9 +92,24 @@ const MessageStack = ({navigation}) => (
   </Stack.Navigator>
 );
 
+const SearchStack = ({navigation}) => (
+  <Stack.Navigator>
+    <Stack.Screen name="Search" component={SearchScreen}  options={{
+      headerShown:false,
+    }}/>
+  </Stack.Navigator>
+);
+const MatchingStack = ({navigation}) => (
+  <Stack.Navigator>
+    <Stack.Screen name="Search" component={MatchingScreen}  options={{
+      headerShown:false,
+    }}/>
+  </Stack.Navigator>
+);
 const ProfileStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
+    
       name="Profile"
       component={ProfileScreen}
       options={{
@@ -120,8 +139,10 @@ const Home = () => {
       ? route.state.routes[route.state.index].name
       : '';
 
-    if (routeName === 'Chat') {
-      return false;
+    if (routeName === 'Chats') {
+      return (
+        <Tab.Navigator style={{display:'none'}}></Tab.Navigator>
+      );
     }
     return true;
   };
@@ -135,11 +156,46 @@ const Home = () => {
         name="Home"
         component={FeedStack}
         options={({route}) => ({
+          headerShown:false,
           tabBarLabel: 'Home',
           // tabBarVisible: route.state && route.state.index === 0,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons
               name="home-outline"
+              color={color}
+              size={size}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchStack}
+        options={({route}) => ({
+          // Or Hide tabbar when push!
+          // https://github.com/react-navigation/react-navigation/issues/7677
+          // tabBarVisible: route.state && route.state.index === 0,
+          // tabBarLabel: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons
+              name="search-outline"
+              color={color}
+              size={size}
+            />
+          ),
+        })}
+      />
+      <Tab.Screen
+        name="Matching"
+        component={MatchingStack}
+        options={({route}) => ({
+          // Or Hide tabbar when push!
+          // https://github.com/react-navigation/react-navigation/issues/7677
+          // tabBarVisible: route.state && route.state.index === 0,
+          // tabBarLabel: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons
+              name="checkmark-circle-outline"
               color={color}
               size={size}
             />
